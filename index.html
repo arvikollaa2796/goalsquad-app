@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#9333ea">
+    <meta name="description" content="Track daily habits with friends through gamified group goals">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="GoalSquad">
+    <title>GoalSquad - Group Habit Tracker</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkdvYWxTcXVhZCAtIEdyb3VwIEhhYml0IFRyYWNrZXIiLAogICJzaG9ydF9uYW1lIjogIkdvYWxTcXVhZCIsCiAgImRlc2NyaXB0aW9uIjogIlRyYWNrIGRhaWx5IGhhYml0cyB3aXRoIGZyaWVuZHMgdGhyb3VnaCBnYW1pZmllZCBncm91cCBnb2FscyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjNmNGY2IiwKICAidGhlbWVfY29sb3IiOiAiIzkzMzNlYSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USTRJaUJvWldsbmFIUTlJakV5T0NJZ2RtbGxkMEp2ZUQwaU1DQXdJREV5T0NBeU9DSWdabWxzYkQwaWJtOXVaU0lnZUcxc2JuTTlJbWgwZEhBNkx5OTNkM2N1ZHpNdWIzSm5Mekl3TURBdmMzWm5JajQ4WkdWbWN6NDhjR0YwYUNCcFpEMGlZU0lnWkQwaVRUUTJJRFExVGpJNElqUXlUalUwVGpVMklqUXlURGcySWprNFRUZzNJalEyUXpnd0lqUXlJRGMySWpRMFRqWXlJalEyVERJM0lqUTJXaUlnWm1sc2JEMGlJeko1TkVKQ0luMDhMM0JoZEdnK1BDOWtaV1p6UGp4amFYSmpiR1VnWTNnOUlqWTBJaUJqZVQwaU5qUWlJSEk5SWpJd0lpQm1hV3hzUFNKMWNtd29JR0VwSWk4K1BISmxZM1FnZUQwaU1UZ2lJSGs5SWpFNElpQjNhV1IwYUQwaU9UQWlJR2hsYVdkb2REMGlPVEFpSUhKNFBTSXhOQ0lnWm1sc2JEMGlJek01TXpObFlTSXZQand2YzNablBnPT0iLAogICAgICAic2l6ZXMiOiAiMTI4eDEyOCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9LAogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU5UQXlJaUJvWldsbmFIUTlJalV3TWlJZ2RtbGxkMEp2ZUQwaU1DQXdJRFV3TWlBMU1ESWlJR1pwYkd3OUltNXZibVVpSUhodGJHNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUk0UEdSbFpuTStQSEJoZEdnZ2FXUTlJbUVpSUdROUlrMHhNamtnTVRFeVVqVXlJakV4TUV0eFVFRkJkakF4VDVCF0FJZ0JCVG5JVEVTVFR4U0F5UlNJRkFCZEVFVHVmY0xEWFNnQVpBUUIrUENBQkFJZ0JCdVQzaFVVSER0TVk5Zzg3dHRUZEZNMFVmWVhVdHVhY2V4VHpNZE11UmNFaVpoTHVJZ0FPZmNMRERIUT08L0gvSDNIeEg2SDc4L0gvSDcvSC9IMEgvSDcvUXd3SEgoaC9oN2g3aDc4L0hgOC9IOEgvSDMmL0gvSDAvSDcoSC9IK0gvSDlcSC4vSDgvSDVhSDdIL0gvSDdIL0gvSDdIL0gvSDhHSC9IL0hJSC9IdWYvSDdIL0FIJU0nOFEvSTZlZWgvSC9IIi9IJyZIL0J3MC9IKkgrSC1IMGJ5JEAvSE1IPy9ILkgvSCcwSDdIL0g4IHYgU2J1dGlvbiBwIGZpbGxlclNlcXVlbnlhZU5hcGhkZWlOOWF1LXhLU1pOTzJGI2QbEFcQQl6c0UaUW5YblZGUStVMUV2QVNGNEVTL1NGRmJnQUFBUVNVUkhSRVFhWWtBUUFHRXVJSVVoUkZSWUZKZGV2VUxOKysrQUtTMXZpQWwrdWlZclpGSWllMGN5eUlGbzl4eTBhL2R5cDFxSzNKdFFZY1ljdk5JdlZSd1JBWHM5djB0K0p4cjljVGhHWnMwNWlnQUNZUUFCIiwgIHNpemVzIjogIjUxMng1MTIiLCAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiICAgfQogIF0KfQ==">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0aCBpZD0iYSIgZD0iTTQ2IDQ1TjI4IDQyTjU0TjU2IDQyTDg2IDk4TTg3IDQ2Qzg0IDQyIDc2IDQ0TjYyIDQ2TDI3IDQ2WiIgZmlsbD0iIzk0QjQiLz48L3BhdGg+PC9kZWZzPjxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PHJlY3QgeD0iMTgiIHk9IjE4IiB3aWR0aD0iOTAiIGhlaWdodD0iOTAiIHJ4PSIxNCIgZmlsbD0iIzkzMzNlYSIvPjwvc3ZnPg==">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0aCBpZD0iYSIgZD0iTTQ2IDQ1TjI4IDQyTjU0TjU2IDQyTDg2IDk4TTg3IDQ2Qzg0IDQyIDc2IDQ0TjYyIDQ2TDI3IDQ2WiIgZmlsbD0iIzk0QjQiLz48L3BhdGg+PC9kZWZzPjxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PHJlY3QgeD0iMTgiIHk9IjE4IiB3aWR0aD0iOTAiIGhlaWdodD0iOTAiIHJ4PSIxNCIgZmlsbD0iIzkzMzNlYSIvPjwvc3ZnPg==">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* PWA Install Button */
+        .install-prompt {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .install-prompt.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .install-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        
+        .install-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Splash screen styles */
+        .splash-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+        }
+        
+        .splash-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+            40%, 43% { transform: translateY(-30px); }
+            70% { transform: translateY(-15px); }
+            90% { transform: translateY(-4px); }
+        }
+        
+        /* Hide splash after load */
+        .splash-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Auth animations */
+        .auth-slide-in {
+            animation: slideInFromRight 0.3s ease-out;
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .form-input {
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(147, 51, 234, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash" class="splash-screen">
+        <div class="splash-logo">🎯</div>
+        <h1 class="text-3xl font-bold mb-2">GoalSquad</h1>
+        <p class="text-lg opacity-90">Loading your goals...</p>
+    </div>
+
+    <!-- Install Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="font-bold text-lg">Install GoalSquad</div>
+                <div class="text-sm opacity-90">Get the full app experience!</div>
+            </div>
+            <div>
+                <button id="installBtn" class="install-btn">Install</button>
+                <button id="dismissBtn" class="install-btn">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { 
+            Trophy, Target, Camera, Heart, MessageCircle, Users, 
+            Flame, Star, CheckCircle, Plus, Bell, Share2, Award,
+            Download, X, Mail, Lock, User, Eye, EyeOff, LogOut
+        } = lucide;
+
+        // Authentication Service
+        const AuthService = {
+            users: [
+                { id: 1, email: "alex@example.com", password: "123456", name: "Alex", avatar: "🏃‍♂️" },
+                { id: 2, email: "sarah@example.com", password: "123456", name: "Sarah", avatar: "💪" },
+                { id: 3, email: "mike@example.com", password: "123456", name: "Mike", avatar: "🚴‍♂️" },
+                { id: 4, email: "emma@example.com", password: "123456", name: "Emma", avatar: "🧘‍♀️" }
+            ],
+
+            login: async (email, password) => {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const user = AuthService.users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    const { password: _, ...userData } = user;
+                    return { success: true, user: userData };
+                }
+                return { success: false, error: "Invalid email or password" };
+            },
+
+            register: async (email, password, name) => {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const existingUser = AuthService.users.find(u => u.email === email);
+                if (existingUser) {
+                    return { success: false, error: "Email already exists" };
+                }
+
+                const newUser = {
+                    id: AuthService.users.length + 1,
+                    email,
+                    password,
+                    name,
+                    avatar: "👤"
+                };
+                
+                AuthService.users.push(newUser);
+                const { password: _, ...userData } = newUser;
+                return { success: true, user: userData };
+            },
+
+            logout: () => {
+                // Clear any stored session data
+                return { success: true };
+            }
+        };
+
+        // Auth Context
+        const AuthContext = React.createContext();
+
+        const AuthProvider = ({ children }) => {
+            const [user, setUser] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const login = async (email, password) => {
+                setLoading(true);
+                const result = await AuthService.login(email, password);
+                if (result.success) {
+                    setUser(result.user);
+                }
+                setLoading(false);
+                return result;
+            };
+
+            const register = async (email, password, name) => {
+                setLoading(true);
+                const result = await AuthService.register(email, password, name);
+                if (result.success) {
+                    setUser(result.user);
+                }
+                setLoading(false);
+                return result;
+            };
+
+            const logout = () => {
+                setUser(null);
+                AuthService.logout();
+            };
+
+            return React.createElement(AuthContext.Provider, {
+                value: { user, login, register, logout, loading }
+            }, children);
+        };
+
+        // Login Component
+        const LoginScreen = ({ onSwitchToRegister }) => {
+            const [formData, setFormData] = useState({ email: "", password: "" });
+            const [showPassword, setShowPassword] = useState(false);
+            const [error, setError] = useState("");
+            const { login, loading } = React.useContext(AuthContext);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setError("");
+                
+                if (!formData.email || !formData.password) {
+                    setError("Please fill in all fields");
+                    return;
+                }
+
+                const result = await login(formData.email, formData.password);
+                if (!result.success) {
+                    setError(result.error);
+                }
+            };
+
+            const demoLogin = () => {
+                setFormData({ email: "alex@example.com", password: "123456" });
+            };
+
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-pink-600 flex items-center justify-center p-6" },
+                React.createElement('div', { className: "w-full max-w-md" },
+                    React.createElement('div', { className: "text-center mb-8" },
+                        React.createElement('div', { className: "text-6xl mb-4" }, "🎯"),
+                        React.createElement('h1', { className: "text-4xl font-bold text-white mb-2" }, "GoalSquad"),
+                        React.createElement('p', { className: "text-purple-100" }, "Track habits with friends")
+                    ),
+                    
+                    React.createElement('div', { className: "bg-white rounded-3xl p-8 shadow-2xl auth-slide-in" },
+                        React.createElement('h2', { className: "text-2xl font-bold text-gray-800 mb-6 text-center" }, "Welcome Back"),
+                        
+                        error && React.createElement('div', { className: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl mb-4" }, error),
+                        
+                        React.createElement('form', { onSubmit: handleSubmit, className: "space-y-4" },
+                            React.createElement('div', { className: "relative" },
+                                React.createElement(Mail, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" }),
+                                React.createElement('input', {
+                                    type: "email",
+                                    placeholder: "Email address",
+                                    value: formData.email,
+                                    onChange: (e) => setFormData({...formData, email: e.target.value}),
+                                    className: "form-input w-full pl-12 pr-4 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                })
+                            ),
+                            
+                            React.createElement('div', { className: "relative" },
+                                React.createElement(Lock, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" }),
+                                React.createElement('input', {
+                                    type: showPassword ? "text" : "password",
+                                    placeholder: "Password",
+                                    value: formData.password,
+                                    onChange: (e) => setFormData({...formData, password: e.target.value}),
+                                    className: "form-input w-full pl-12 pr-12 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                }),
+                                React.createElement('button', {
+                                    type: "button",
+                                    onClick: () => setShowPassword(!showPassword),
+                                    className: "absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                },
+                                    showPassword ? React.createElement(EyeOff, { className: "w-5 h-5" }) : React.createElement(Eye, { className: "w-5 h-5" })
+                                )
+                            ),
+                            
+                            React.createElement('button', {
+                                type: "submit",
+                                disabled: loading,
+                                className: "w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            }, loading ? "Signing in..." : "Sign In")
+                        ),
+                        
+                        React.createElement('div', { className: "mt-6" },
+                            React.createElement('button', {
+                                onClick: demoLogin,
+                                className: "w-full bg-gray-100 text-gray-700 py-3 rounded-2xl font-medium hover:bg-gray-200 transition-colors"
+                            }, "Try Demo Account"),
+                            React.createElement('p', { className: "text-xs text-gray-500 text-center mt-2" }, "Email: alex@example.com | Password: 123456")
+                        ),
+                        
+                        React.createElement('div', { className: "mt-6 text-center" },
+                            React.createElement('span', { className: "text-gray-600" }, "Don't have an account? "),
+                            React.createElement('button', {
+                                onClick: onSwitchToRegister,
+                                className: "text-purple-600 font-semibold hover:text-purple-700"
+                            }, "Sign up")
+                        )
+                    )
+                )
+            );
+        };
+
+        // Register Component
+        const RegisterScreen = ({ onSwitchToLogin }) => {
+            const [formData, setFormData] = useState({ email: "", password: "", name: "" });
+            const [showPassword, setShowPassword] = useState(false);
+            const [error, setError] = useState("");
+            const { register, loading } = React.useContext(AuthContext);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setError("");
+                
+                if (!formData.email || !formData.password || !formData.name) {
+                    setError("Please fill in all fields");
+                    return;
+                }
+
+                if (formData.password.length < 6) {
+                    setError("Password must be at least 6 characters");
+                    return;
+                }
+
+                const result = await register(formData.email, formData.password, formData.name);
+                if (!result.success) {
+                    setError(result.error);
+                }
+            };
+
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 flex items-center justify-center p-6" },
+                React.createElement('div', { className: "w-full max-w-md" },
+                    React.createElement('div', { className: "text-center mb-8" },
+                        React.createElement('div', { className: "text-6xl mb-4" }, "🎯"),
+                        React.createElement('h1', { className: "text-4xl font-bold text-white mb-2" }, "GoalSquad"),
+                        React.createElement('p', { className: "text-purple-100" }, "Join the goal-crushing community")
+                    ),
+                    
+                    React.createElement('div', { className: "bg-white rounded-3xl p-8 shadow-2xl auth-slide-in" },
+                        React.createElement('h2', { className: "text-2xl font-bold text-gray-800 mb-6 text-center" }, "Create Account"),
+                        
+                        error && React.createElement('div', { className: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl mb-4" }, error),
+                        
+                        React.createElement('form', { onSubmit: handleSubmit, className: "space-y-4" },
+                            React.createElement('div', { className: "relative" },
+                                React.createElement(User, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" }),
+                                React.createElement('input', {
+                                    type: "text",
+                                    placeholder: "Full name",
+                                    value: formData.name,
+                                    onChange: (e) => setFormData({...formData, name: e.target.value}),
+                                    className: "form-input w-full pl-12 pr-4 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                })
+                            ),
+                            
+                            React.createElement('div', { className: "relative" },
+                                React.createElement(Mail, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" }),
+                                React.createElement('input', {
+                                    type: "email",
+                                    placeholder: "Email address",
+                                    value: formData.email,
+                                    onChange: (e) => setFormData({...formData, email: e.target.value}),
+                                    className: "form-input w-full pl-12 pr-4 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                })
+                            ),
+                            
+                            React.createElement('div', { className: "relative" },
+                                React.createElement(Lock, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" }),
+                                React.createElement('input', {
+                                    type: showPassword ? "text" : "password",
+                                    placeholder: "Password (min 6 characters)",
+                                    value: formData.password,
+                                    onChange: (e) => setFormData({...formData, password: e.target.value}),
+                                    className: "form-input w-full pl-12 pr-12 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                }),
+                                React.createElement('button', {
+                                    type: "button",
+                                    onClick: () => setShowPassword(!showPassword),
+                                    className: "absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                },
+                                    showPassword ? React.createElement(EyeOff, { className: "w-5 h-5" }) : React.createElement(Eye, { className: "w-5 h-5" })
+                                )
+                            ),
+                            
+                            React.createElement('button', {
+                                type: "submit",
+                                disabled: loading,
+                                className: "w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            }, loading ? "Creating account..." : "Create Account")
+                        ),
+                        
+                        React.createElement('div', { className: "mt-6 text-center" },
+                            React.createElement('span', { className: "text-gray-600" }, "Already have an account? "),
+                            React.createElement('button', {
+                                onClick: onSwitchToLogin,
+                                className: "text-purple-600 font-semibold hover:text-purple-700"
+                            }, "Sign in")
+                        )
+                    )
+                )
+            );
+        };
+
+        // Main App Component (same as before, but with auth context)
+        const GoalSquadApp = () => {
+            const { user, logout } = React.useContext(AuthContext);
+            const [activeTab, setActiveTab] = useState('home');
+            const [selectedGroup, setSelectedGroup] = useState(0);
+            const [showCelebration, setShowCelebration] = useState(false);
+            const [newPost, setNewPost] = useState({ text: '', image: null });
+            const [showNotification, setShowNotification] = useState(false);
+
+            const groups = [
+                {
+                    id: 1,
+                    name: "Fitness Squad",
+                    members: ["🏃‍♂️ Alex", "💪 Sarah", "🚴‍♂️ Mike", "🧘‍♀️ Emma"],
+                    color: "from-purple-500 to-pink-500"
+                },
+                {
+                    id: 2,
+                    name: "Study Buddies",
+                    members: ["🏃‍♂️ Alex", "📚 Tom", "🎯 Lisa"],
+                    color: "from-blue-500 to-cyan-500"
+                }
+            ];
+
+            const [goals, setGoals] = useState({
+                individual: [
+                    { id: 1, text: "Drink 8 glasses of water", completed: true, streak: 5 },
+                    { id: 2, text: "30 min workout", completed: true, streak: 3 },
+                    { id: 3, text: "Read for 20 mins", completed: false, streak: 2 },
+                    { id: 4, text: "Meditate 10 mins", completed: true, streak: 7 }
+                ],
+                group: [
+                    { id: 1, text: "Everyone posts a healthy meal", progress: 3, total: 4, completed: false },
+                    { id: 2, text: "Collective 10k steps each", progress: 4, total: 4, completed: true }
+                ]
+            });
+
+            const [posts] = useState([
+                {
+                    id: 1,
+                    user: "💪 Sarah",
+                    content: "Just crushed my morning workout! 💥",
+                    image: "🏋️‍♀️",
+                    likes: 12,
+                    comments: ["Great job! 🔥", "Inspiring! 💪"],
+                    time: "2h ago",
+                    type: "workout"
+                },
+                {
+                    id: 2,
+                    user: "🧘‍♀️ Emma",
+                    content: "Healthy breakfast to fuel the day! 🥗",
+                    image: "🥑🍳",
+                    likes: 8,
+                    comments: ["Looks delicious!", "Recipe please! 🙏"],
+                    time: "3h ago",
+                    type: "nutrition"
+                },
+                {
+                    id: 3,
+                    user: "🚴‍♂️ Mike",
+                    content: "15k steps and counting! Who's joining me? 🚶‍♂️",
+                    image: "📱📊",
+                    likes: 15,
+                    comments: ["I'm in! 🏃‍♀️", "Challenge accepted! 💪"],
+                    time: "4h ago",
+                    type: "steps"
+                }
+            ]);
+
+            const [achievements] = useState([
+                { user: "💪 Sarah", title: "Perfect Day!", subtitle: "Completed all goals", time: "Yesterday" },
+                { user: `${user?.avatar} ${user?.name}`, title: "Week Warrior", subtitle: "7-day streak", time: "2 days ago" },
+                { user: "🧘‍♀️ Emma", title: "Consistency King", subtitle: "30-day meditation streak", time: "3 days ago" }
+            ]);
+
+            const toggleGoal = (type, id) => {
+                setGoals(prev => ({
+                    ...prev,
+                    [type]: prev[type].map(goal => 
+                        goal.id === id 
+                            ? { ...goal, completed: !goal.completed, streak: goal.completed ? goal.streak : goal.streak + 1 }
+                            : goal
+                    )
+                }));
+            };
+
+            const checkAllGoalsCompleted = () => {
+                const individualCompleted = goals.individual.every(goal => goal.completed);
+                if (individualCompleted && !showCelebration) {
+                    setShowCelebration(true);
+                    setShowNotification(true);
+                    
+                    // Send push notification if supported
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('🎉 Perfect Day!', {
+                            body: `${user.name} completed all goals today!`,
+                            icon: '/icon-192.png',
+                            badge: '/icon-192.png'
+                        });
+                    }
+                    
+                    setTimeout(() => setShowCelebration(false), 3000);
+                    setTimeout(() => setShowNotification(false), 5000);
+                }
+            };
+
+            useEffect(() => {
+                checkAllGoalsCompleted();
+            }, [goals]);
+
+            // Request notification permission
+            useEffect(() => {
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission();
+                }
+            }, []);
+
+            const getTabIcon = (tab) => {
+                switch(tab) {
+                    case 'home': return React.createElement(Target, { className: "w-5 h-5" });
+                    case 'feed': return React.createElement(Users, { className: "w-5 h-5" });
+                    case 'achievements': return React.createElement(Trophy, { className: "w-5 h-5" });
+                    case 'profile': return React.createElement(Star, { className: "w-5 h-5" });
+                    default: return null;
+                }
+            };
+
+            const renderHome = () => (
+                React.createElement('div', { className: "space-y-6" },
+                    React.createElement('div', { className: "flex space-x-3 overflow-x-auto pb-2" },
+                        groups.map((group, index) => (
+                            React.createElement('div', {
+                                key: group.id,
+                                onClick: () => setSelectedGroup(index),
+                                className: `flex-shrink-0 p-4 rounded-2xl cursor-pointer transition-all ${
+                                    selectedGroup === index 
+                                        ? `bg-gradient-to-r ${group.color} text-white shadow-lg scale-105` 
+                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                }`
+                            },
+                                React.createElement('div', { className: "text-sm font-semibold" }, group.name),
+                                React.createElement('div', { className: "text-xs opacity-80" }, `${group.members.length} members`)
+                            )
+                        ))
+                    ),
+                    React.createElement('div', { className: "bg-white rounded-3xl p-6 shadow-lg" },
+                        React.createElement('div', { className: "flex items-center justify-between mb-4" },
+                            React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "My Daily Goals"),
+                            React.createElement('div', { className: "flex items-center space-x-1 text-orange-500" },
+                                React.createElement(Flame, { className: "w-5 h-5" }),
+                                React.createElement('span', { className: "font-semibold" }, "5")
+                            )
+                        ),
+                        React.createElement('div', { className: "space-y-3" },
+                            goals.individual.map(goal => (
+                                React.createElement('div', {
+                                    key: goal.id,
+                                    onClick: () => toggleGoal('individual', goal.id),
+                                    className: `flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all ${
+                                        goal.completed 
+                                            ? 'bg-green-100 border-2 border-green-300' 
+                                            : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+                                    }`
+                                },
+                                    React.createElement('div', { className: "flex items-center space-x-3" },
+                                        React.createElement('div', {
+                                            className: `w-6 h-6 rounded-full flex items-center justify-center ${
+                                                goal.completed ? 'bg-green-500' : 'bg-gray-300'
+                                            }`
+                                        },
+                                            goal.completed && React.createElement(CheckCircle, { className: "w-4 h-4 text-white" })
+                                        ),
+                                        React.createElement('span', {
+                                            className: `font-medium ${goal.completed ? 'text-green-800' : 'text-gray-700'}`
+                                        }, goal.text)
+                                    ),
+                                    React.createElement('div', { className: "flex items-center space-x-2" },
+                                        React.createElement('div', { className: "text-sm text-orange-500 font-semibold" }, `${goal.streak}🔥`)
+                                    )
+                                )
+                            ))
+                        )
+                    ),
+                    React.createElement('div', { className: "bg-white rounded-3xl p-6 shadow-lg" },
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800 mb-4" }, "Group Goals"),
+                        React.createElement('div', { className: "space-y-4" },
+                            goals.group.map(goal => (
+                                React.createElement('div', { key: goal.id, className: "bg-gray-50 rounded-2xl p-4" },
+                                    React.createElement('div', { className: "flex items-center justify-between mb-2" },
+                                        React.createElement('span', { className: "font-medium text-gray-700" }, goal.text),
+                                        React.createElement('span', { className: "text-sm text-purple-600 font-semibold" }, `${goal.progress}/${goal.total}`)
+                                    ),
+                                    React.createElement('div', { className: "w-full bg-gray-200 rounded-full h-3" },
+                                        React.createElement('div', {
+                                            className: `h-3 rounded-full transition-all ${goal.completed ? 'bg-green-500' : 'bg-purple-500'}`,
+                                            style: { width: `${(goal.progress / goal.total) * 100}%` }
+                                        })
+                                    )
+                                )
+                            ))
+                        )
+                    )
+                )
+            );
+
+            const renderFeed = () => (
+                React.createElement('div', { className: "space-y-6" },
+                    React.createElement('div', { className: "bg-white rounded-3xl p-6 shadow-lg" },
+                        React.createElement('div', { className: "flex items-center space-x-3 mb-4" },
+                            React.createElement('div', { className: "w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white" }, user.avatar),
+                            React.createElement('input', {
+                                type: "text",
+                                placeholder: "Share your progress...",
+                                value: newPost.text,
+                                onChange: (e) => setNewPost({...newPost, text: e.target.value}),
+                                className: "flex-1 p-3 bg-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            }),
+                            React.createElement('button', { className: "p-3 bg-purple-500 text-white rounded-2xl hover:bg-purple-600 transition-colors" },
+                                React.createElement(Camera, { className: "w-5 h-5" })
+                            )
+                        )
+                    ),
+                    ...posts.map(post => (
+                        React.createElement('div', { key: post.id, className: "bg-white rounded-3xl p-6 shadow-lg" },
+                            React.createElement('div', { className: "flex items-center justify-between mb-4" },
+                                React.createElement('div', { className: "flex items-center space-x-3" },
+                                    React.createElement('div', { className: "w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white" }, post.user.split(' ')[0]),
+                                    React.createElement('div', {},
+                                        React.createElement('div', { className: "font-semibold text-gray-800" }, post.user.split(' ')[1]),
+                                        React.createElement('div', { className: "text-sm text-gray-500" }, post.time)
+                                    )
+                                ),
+                                React.createElement(Share2, { className: "w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600" })
+                            ),
+                            React.createElement('p', { className: "text-gray-700 mb-4" }, post.content),
+                            React.createElement('div', { className: "text-6xl text-center mb-4 bg-gray-100 rounded-2xl py-8" }, post.image),
+                            React.createElement('div', { className: "flex items-center justify-between" },
+                                React.createElement('div', { className: "flex items-center space-x-4" },
+                                    React.createElement('button', { className: "flex items-center space-x-2 text-red-500 hover:text-red-600" },
+                                        React.createElement(Heart, { className: "w-5 h-5" }),
+                                        React.createElement('span', { className: "font-semibold" }, post.likes)
+                                    ),
+                                    React.createElement('button', { className: "flex items-center space-x-2 text-blue-500 hover:text-blue-600" },
+                                        React.createElement(MessageCircle, { className: "w-5 h-5" }),
+                                        React.createElement('span', { className: "font-semibold" }, post.comments.length)
+                                    )
+                                )
+                            ),
+                            post.comments.length > 0 && React.createElement('div', { className: "mt-4 space-y-2" },
+                                ...post.comments.slice(0, 2).map((comment, index) => (
+                                    React.createElement('div', { key: index, className: "text-sm text-gray-600 bg-gray-50 rounded-xl p-3" }, comment)
+                                ))
+                            )
+                        )
+                    ))
+                )
+            );
+
+            const renderAchievements = () => (
+                React.createElement('div', { className: "space-y-6" },
+                    React.createElement('div', { className: "bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl p-6 text-white shadow-lg" },
+                        React.createElement('div', { className: "flex items-center space-x-3 mb-4" },
+                            React.createElement(Trophy, { className: "w-8 h-8" }),
+                            React.createElement('h2', { className: "text-2xl font-bold" }, "Achievements")
+                        ),
+                        React.createElement('p', { className: "opacity-90" }, "Celebrate your wins and your friends' success!")
+                    ),
+                    ...achievements.map((achievement, index) => (
+                        React.createElement('div', { key: index, className: "bg-white rounded-3xl p-6 shadow-lg" },
+                            React.createElement('div', { className: "flex items-center space-x-4" },
+                                React.createElement('div', { className: "w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-2xl" }, achievement.user.split(' ')[0]),
+                                React.createElement('div', { className: "flex-1" },
+                                    React.createElement('div', { className: "flex items-center space-x-2 mb-1" },
+                                        React.createElement('h3', { className: "font-bold text-gray-800" }, achievement.title),
+                                        React.createElement(Award, { className: "w-5 h-5 text-yellow-500" })
+                                    ),
+                                    React.createElement('p', { className: "text-gray-600 mb-1" }, achievement.subtitle),
+                                    React.createElement('p', { className: "text-sm text-gray-400" }, achievement.time)
+                                )
+                            )
+                        )
+                    ))
+                )
+            );
+
+            const renderProfile = () => (
+                React.createElement('div', { className: "space-y-6" },
+                    React.createElement('div', { className: "bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-6 text-white shadow-lg" },
+                        React.createElement('div', { className: "text-center" },
+                            React.createElement('div', { className: "w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl mx-auto mb-4" }, user.avatar),
+                            React.createElement('h2', { className: "text-2xl font-bold mb-2" }, user.name),
+                            React.createElement('p', { className: "opacity-90 mb-4" }, "Goal Crusher • Streak Master"),
+                            React.createElement('button', {
+                                onClick: logout,
+                                className: "bg-white bg-opacity-20 text-white px-6 py-2 rounded-xl font-medium hover:bg-opacity-30 transition-all flex items-center space-x-2 mx-auto"
+                            },
+                                React.createElement(LogOut, { className: "w-4 h-4" }),
+                                React.createElement('span', {}, "Sign Out")
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: "grid grid-cols-2 gap-4" },
+                        React.createElement('div', { className: "bg-white rounded-2xl p-6 text-center shadow-lg" },
+                            React.createElement('div', { className: "text-3xl font-bold text-purple-500 mb-2" }, "127"),
+                            React.createElement('div', { className: "text-gray-600" }, "Goals Completed")
+                        ),
+                        React.createElement('div', { className: "bg-white rounded-2xl p-6 text-center shadow-lg" },
+                            React.createElement('div', { className: "text-3xl font-bold text-orange-500 mb-2" }, "45"),
+                            React.createElement('div', { className: "text-gray-600" }, "Day Streak")
+                        )
+                    ),
+                    React.createElement('div', { className: "bg-white rounded-3xl p-6 shadow-lg" },
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800 mb-4" }, "This Week"),
+                        React.createElement('div', { className: "flex justify-between items-center" },
+                            ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) => (
+                                React.createElement('div', { key: day, className: "text-center" },
+                                    React.createElement('div', { className: "text-sm text-gray-500 mb-2" }, day),
+                                    React.createElement('div', {
+                                        className: `w-8 h-8 rounded-full flex items-center justify-center ${
+                                            index < 5 ? 'bg-green-500 text-white' : 'bg-gray-200'
+                                        }`
+                                    }, index < 5 ? '✓' : '')
+                                )
+                            ))
+                        )
+                    )
+                )
+            );
+
+            return React.createElement('div', { className: "max-w-md mx-auto bg-gray-50 min-h-screen relative overflow-hidden" },
+                showCelebration && React.createElement('div', { className: "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" },
+                    React.createElement('div', { className: "bg-white rounded-3xl p-8 text-center animate-bounce shadow-2xl" },
+                        React.createElement('div', { className: "text-6xl mb-4" }, "🎉"),
+                        React.createElement('h2', { className: "text-2xl font-bold text-gray-800 mb-2" }, "Perfect Day!"),
+                        React.createElement('p', { className: "text-gray-600" }, "You completed all your goals!")
+                    )
+                ),
+                showNotification && React.createElement('div', { className: "fixed top-4 left-4 right-4 z-40 bg-green-500 text-white p-4 rounded-2xl shadow-lg flex items-center space-x-3" },
+                    React.createElement(Bell, { className: "w-5 h-5" }),
+                    React.createElement('div', { className: "flex-1" },
+                        React.createElement('div', { className: "font-semibold" }, "Goal Achievement!"),
+                        React.createElement('div', { className: "text-sm opacity-90" }, `${user.name} completed all daily goals! 🎉`)
+                    )
+                ),
+                React.createElement('div', { className: "bg-gradient-to-r from-purple-600 to-pink-600 p-6 text-white" },
+                    React.createElement('div', { className: "flex items-center justify-between mb-4" },
+                        React.createElement('h1', { className: "text-2xl font-bold" }, "GoalSquad"),
+                        React.createElement('div', { className: "w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center" },
+                            React.createElement(Bell, { className: "w-5 h-5" })
+                        )
+                    ),
+                    React.createElement('div', { className: "text-lg opacity-90" },
+                        activeTab === 'home' && "Today's Goals",
+                        activeTab === 'feed' && "Friend Feed",
+                        activeTab === 'achievements' && "Hall of Fame",
+                        activeTab === 'profile' && "Your Profile"
+                    )
+                ),
+                React.createElement('div', { className: "p-6 pb-24" },
+                    activeTab === 'home' && renderHome(),
+                    activeTab === 'feed' && renderFeed(),
+                    activeTab === 'achievements' && renderAchievements(),
+                    activeTab === 'profile' && renderProfile()
+                ),
+                React.createElement('div', { className: "fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 max-w-md mx-auto" },
+                    React.createElement('div', { className: "flex justify-around py-2" },
+                        ['home', 'feed', 'achievements', 'profile'].map(tab => (
+                            React.createElement('button', {
+                                key: tab,
+                                onClick: () => setActiveTab(tab),
+                                className: `flex flex-col items-center py-2 px-4 rounded-2xl transition-all ${
+                                    activeTab === tab 
+                                        ? 'text-purple-600 bg-purple-100' 
+                                        : 'text-gray-500 hover:text-gray-700'
+                                }`
+                            },
+                                getTabIcon(tab),
+                                React.createElement('span', { className: "text-xs mt-1 capitalize" }, tab)
+                            )
+                        ))
+                    )
+                )
+            );
+        };
+
+        // Main App Wrapper with Authentication
+        const App = () => {
+            const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+
+            return React.createElement(AuthProvider, {},
+                React.createElement(AuthContext.Consumer, {},
+                    ({ user }) => {
+                        if (!user) {
+                            return authMode === 'login' 
+                                ? React.createElement(LoginScreen, { onSwitchToRegister: () => setAuthMode('register') })
+                                : React.createElement(RegisterScreen, { onSwitchToLogin: () => setAuthMode('login') });
+                        }
+                        return React.createElement(GoalSquadApp, {});
+                    }
+                )
+            );
+        };
+
+        // PWA Installation Logic
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const dismissBtn = document.getElementById('dismissBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installPrompt.classList.remove('show');
+            }
+        });
+
+        dismissBtn.addEventListener('click', () => {
+            installPrompt.classList.remove('show');
+        });
+
+        // Hide splash screen and render app
+        setTimeout(() => {
+            document.getElementById('splash').classList.add('splash-hidden');
+            ReactDOM.render(React.createElement(App), document.getElementById('root'));
+        }, 2000);
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swScript = `
+                    const CACHE_NAME = 'goalsquad-v1';
+                    const urlsToCache = [
+                        '/',
+                        'https://cdn.tailwindcss.com',
+                        'https://unpkg.com/react@18/umd/react.production.min.js',
+                        'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js',
+                        'https://unpkg.com/lucide@latest/dist/umd/lucide.js'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('notificationclick', (event) => {
+                        event.notification.close();
+                        event.waitUntil(
+                            clients.openWindow('/')
+                        );
+                    });
+                `;
+
+                const swBlob = new Blob([swScript], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(swBlob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>
